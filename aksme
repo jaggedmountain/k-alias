@@ -1,0 +1,27 @@
+#!/bin/bash
+# - aksme: initiate AKS device login
+#   - aksme group cluster
+# if no kubeconfig, provide group/cluster
+# if re-authenticating, no params necessary
+
+group=${1:-$AKSGROUP}
+cluster=${2:-$AKSGROUP}
+
+if [ -z "$group" -a -z "$cluster" ]; then
+  echo "...checking current context..."
+  context=`kubectl config get-contexts | grep \* | sed s,\*,-,`
+  cluster=`echo $context | awk '{print $2}'`
+  group=`echo $context | awk '{print $4}' | awk -F_ '{print $2}'`
+fi
+
+if [ -z "$group" -o -z "$cluster" ]; then
+  echo "usage: `basename $0` resource-group clustername"
+  echo "        or set env AKSGROUP and AKSCLUSTER"
+  exit
+fi
+
+az aks get-credentials -g $group -n $cluster --overwrite-existing
+
+kubectl version
+
+kns

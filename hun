@@ -1,0 +1,17 @@
+#!/bin/bash
+# - hun: helm uninstall
+#   - example: hun app
+
+if [ -z "$1" ]; then
+  helm list
+  exit
+fi
+
+line=`helm list | grep $1 | head -n1 | awk '{print $2" "$1" "$9}'`
+
+read -rsn1 -p "uninstall $line? [yN]" confirm
+
+if [ "$confirm" == "y" ]; then
+  app=`echo $line | awk '{print $2}'`
+  helm uninstall $app
+fi

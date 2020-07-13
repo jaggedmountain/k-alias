@@ -1,0 +1,17 @@
+#!/bin/bash
+# - kns: set namespace to current folder (or to arg)
+#   - example: `kns`
+#   - example: `kns staging`
+
+p=`pwd`
+folder=`basename $p`
+ns=${1:-$folder}
+kubectl config set-context `kubectl config current-context` --namespace $ns
+
+echo namespace: $ns
+
+if [ "$folder" != "$ns" ]; then
+  echo "*********************************"
+  echo "** MISMATCHED folder/namespace **"
+  echo "*********************************"
+fi

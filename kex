@@ -1,0 +1,32 @@
+#!/bin/bash
+# - kex: get container shell
+#   - example: `kex pod`
+#   - example: `kex pod sh`
+#   - example: `kex pod:container psql -U postgres`
+#   - example: `kex pod:container cat /html/index.html > out.html`
+
+if [ -z "$1" ]; then
+  kubectl get pod
+  exit
+fi
+
+target=${1%:*}
+container=${1##*:}
+if [ "$target" == "$1" ]; then container=""; fi
+shift
+
+pod=`kubectl get pod | grep $target | head -n1 | awk '{print $1}'`
+
+if [ -z "$pod" ]; then
+  echo no pod found.
+  exit
+fi
+
+sh=${1:-"bash"}
+shift
+
+if [ -n "$container" ]; then
+  kubectl exec --stdin --tty $pod  -c $container -- $sh $@
+else
+  kubectl exec --stdin --tty $pod -- $sh $@
+fi

@@ -1,0 +1,22 @@
+#!/bin/bash
+# - hin: helm install/upgrade with app.values.yaml
+#   - example: hin app repo/chart
+#   - example: hin app repo/chart --set other.var=val
+
+app=$1
+chart=$2
+shift
+shift
+
+if [ -z "$chart" ]; then
+  helm list
+  exit
+fi
+
+if [ ! -f "$app.values.yaml" ]; then
+  helm show values $chart > $app.values.yaml
+  echo missing values file...please edit the new one!
+  exit
+fi
+
+helm upgrade --install -f $app.values.yaml $app $chart $@

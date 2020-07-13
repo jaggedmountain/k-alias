@@ -1,0 +1,40 @@
+#!/bin/bash
+# - kup: download file from pod
+#   - example: `kup pod:/path/file.ext`
+#   - example: `kup pod:/path/file.ext newfile.ext`
+#   - example: `kup pod:/path/file.ext dst/`
+#   - example: `kup pod:/path/file.ext dst/newfile.ext`
+#   - example: `kup pod:container:/path/file.ext`
+
+if [ -z "$1" ]; then
+  kubectl get pod
+  exit
+fi
+
+resource=${1%:*}
+path=${1##*:}
+if [ "$resource" == "$1" ]; then path=""; fi
+
+target=${resource%:*}
+container=${resource##*:}
+if [ "$target" == "$resource" ]; then container=""; fi
+
+pod=`kubectl get pod | grep $target | head -n1 | awk '{print $1}'`
+
+if [ -z "$pod" ]; then
+  echo no pod found.
+  exit
+fi
+
+fn=${2##*/}
+dst=${2%/*}
+
+if [ -z "$fn" ]; then fn=`basename $path`; fi
+if [ -z "$dst" ]; then dst="."; fi
+if [ -n "$dst" ]; then mkdir -p $dst; fi
+
+if [ -n "$container" ]; then
+  kubectl cp $pod:$path  -c $container $dst/$fn
+else
+  kubectl cp $pod:$path $dst/$fn
+fi

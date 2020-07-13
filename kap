@@ -1,0 +1,6 @@
+#!/bin/bash
+# - kap: apply yaml folder/file
+#   - example: `kap configmap.yaml`
+#   - example: `kap ../utility`
+
+kubectl apply -f $1
