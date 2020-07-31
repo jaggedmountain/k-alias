@@ -5,7 +5,7 @@
 # if re-authenticating, no params necessary
 
 group=${1:-$AKSGROUP}
-cluster=${2:-$AKSGROUP}
+cluster=${2:-$AKSCLUSTER}
 
 if [ -z "$group" -a -z "$cluster" ]; then
   echo "...checking current context..."

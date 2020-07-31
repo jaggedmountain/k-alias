@@ -16,8 +16,10 @@ if [ -z "$resource" ]; then
 fi
 
 read -rsn1 -p "restart $resource? [yN]" confirm
-echo ""
+echo "..."
 
 if [ "$confirm" == "y" ]; then
   kubectl rollout restart $resource
+else
+  echo canceled.
 fi

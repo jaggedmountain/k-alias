@@ -15,4 +15,6 @@ if [ -z "$pod" ]; then
   exit
 fi
 
-kubectl describe pod $pod
+shift
+
+kubectl describe pod $pod $@

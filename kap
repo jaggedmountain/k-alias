@@ -3,4 +3,4 @@
 #   - example: `kap configmap.yaml`
 #   - example: `kap ../utility`
 
-kubectl apply -f $1
+kubectl apply -f $@
