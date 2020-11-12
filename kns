@@ -1,9 +1,18 @@
 #!/bin/bash
-# - kns: set namespace to current folder (or to arg)
+# - kns: set namespace and context from working directory (or from arg)
+#   - assumes path format of ./context/namespace
 #   - example: `kns`
 #   - example: `kns staging`
 
 p=`pwd`
+path=`dirname $p`
+target=`basename $path`
+ctx=`kubectl config get-contexts | grep $target | awk '{print $1}'`
+
+if [[ -n "$ctx" && "$ctx" != "*" ]]; then
+  kubectl config use-context $ctx
+fi
+
 folder=`basename $p`
 ns=${1:-$folder}
 kubectl config set-context `kubectl config current-context` --namespace $ns

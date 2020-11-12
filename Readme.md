@@ -8,6 +8,8 @@ So smooth you wont even *want* a gui!
 
 Drop them into `/usr/local/bin` or somewhere on your path.
 
+If you organize your folders as `context/namespace`, then `kns` will switch contexts and namespace, making a pretty seamless transition between clusters.  (It matches the folder name to kubeconfig context using grep, so be not a good idea to have one context name as a substring of another!)
+
 They are safe to run without arguments, and without any, will generally just list resources.
 
 Confirmation prompts protect negative-change actions (uninstall, restart).
@@ -38,7 +40,7 @@ restart deployment.apps/one-somechart-ui? [yN]
 - kk: shortkey for kubectl
   - `$ kk get pod`
 
-- kns: set namespace to current folder (or to arg)
+- kns: set context/namespace from path (or to arg)
   - `$ kns`
   - `$ kns staging`
 
