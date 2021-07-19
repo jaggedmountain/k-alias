@@ -1,0 +1,12 @@
+#!/bin/bash
+# - azs: set Azure subscription
+#   - azs subscription-name
+# if no subscription, lists subscriptions
+
+subscription=${*:-$AKSSUBSCRIPTION}
+
+if [ ! -z "$subscription" ]; then
+  az account set --subscription "$subscription"
+fi
+echo "...getting subscriptions..."
+az account list --output table
