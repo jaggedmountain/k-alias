@@ -1,10 +1,10 @@
 #!/bin/bash
-# - kup: download file from pod
-#   - example: `kup pod:/path/file.ext`
-#   - example: `kup pod:/path/file.ext newfile.ext`
-#   - example: `kup pod:/path/file.ext dst/`
-#   - example: `kup pod:/path/file.ext dst/newfile.ext`
-#   - example: `kup pod:container:/path/file.ext`
+# - kdn: download file from pod
+#   - example: `kdn pod:/path/file.ext`
+#   - example: `kdn pod:/path/file.ext newfile.ext`
+#   - example: `kdn pod:/path/file.ext dst/`
+#   - example: `kdn pod:/path/file.ext dst/newfile.ext`
+#   - example: `kdn pod:container:/path/file.ext`
 
 if [ -z "$1" ]; then
   kubectl get pod
