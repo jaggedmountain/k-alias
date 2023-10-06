@@ -80,6 +80,9 @@ restart deployment.apps/one-somechart-ui? [yN]
   - `$ $ kap configmap.yaml`
   - `$ $ kap ../utility`
 
+- krm: delete a pod
+  - `$ krm pod`
+
 - hls: helm list
   - `$ hls`
 

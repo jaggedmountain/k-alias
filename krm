@@ -1,0 +1,25 @@
+#!/bin/bash
+# - krm: delete a pod
+#   - example: `krm pod`
+
+if [ -z "$1" ]; then
+  echo no pod found.
+  exit
+fi
+
+pod=$(kubectl get pod | grep $1 | head -n1 | awk '{print $1}')
+
+if [ -z "$pod" ]; then
+  echo no pod found.
+  exit
+fi
+
+read -rsn1 -p "delete pod $pod? [yN]" confirm
+echo "..."
+
+if [ "$confirm" == "y" ]; then
+    shift
+    kubectl delete pod $pod $@
+else 
+    echo canceled.
+fi
