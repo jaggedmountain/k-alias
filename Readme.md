@@ -96,3 +96,7 @@ restart deployment.apps/one-somechart-ui? [yN]
 - aksme: initiate AKS device login
   - `$ aksme`
   - `$ aksme rg-name aks-name` (initial login)
+
+- azs: set (or list) Azure subscriptions 
+  - `$ azs` (list subs)
+  - `$ azs sub-name` (switch to sub-name, spaces in sub-name are allowed without quotes)
