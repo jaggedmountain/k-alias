@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json",
     "id": "k-alias",
     "version": "1.0.0",
     "name": "k*alias",
