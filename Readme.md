@@ -4,9 +4,54 @@ Alias scripts for making kubectl *smooth*.
 
 So smooth you wont even *want* a gui!
 
-## Overview
+## Install
 
-Drop them into `/usr/local/bin` or somewhere on your path.
+As a [dev container feature](https://containers.dev/features):
+
+```jsonc
+// .devcontainer/devcontainer.json
+"features": {
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/jaggedmountain/k-alias/k-alias:1": {}
+}
+```
+
+Options: `installPath` (default `/usr/local/bin`), `includeKubectl`,
+`includeHelm`, `includeAzure` (all default `true`).
+
+### Without a dev container
+
+The same installer works piped to bash — it downloads the scripts when it
+isn't running from a checkout:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/jaggedmountain/k-alias/master/src/k-alias/install.sh | sudo bash
+```
+
+The feature options are environment variables here (uppercase, no separator).
+No sudo needed for a path we already own:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/jaggedmountain/k-alias/master/src/k-alias/install.sh \
+  | INSTALLPATH="$HOME/.local/bin" INCLUDEAZURE=false bash
+```
+
+- `INSTALLPATH` — default `/usr/local/bin`
+- `INCLUDEKUBECTL`, `INCLUDEHELM`, `INCLUDEAZURE` — default `true`
+- `KALIAS_BASE_URL` — download source, to install from a fork or branch
+
+From a clone, `install.sh` copies from `src/k-alias/bin` and skips the
+download entirely:
+
+```bash
+git clone https://github.com/jaggedmountain/k-alias.git
+sudo ./k-alias/src/k-alias/install.sh
+```
+
+Or just copy `src/k-alias/bin/*` onto the path by hand.
+
+## Overview
 
 If you organize your folders as `context/namespace`, then `kns` will switch contexts and namespace, making a pretty seamless transition between clusters.  (It matches the folder name to kubeconfig context using grep, so be not a good idea to have one context name as a substring of another!)
 
@@ -100,3 +145,7 @@ restart deployment.apps/one-somechart-ui? [yN]
 - azs: set (or list) Azure subscriptions 
   - `$ azs` (list subs)
   - `$ azs sub-name` (switch to sub-name, spaces in sub-name are allowed without quotes)
+
+## License
+
+[MIT](LICENSE)

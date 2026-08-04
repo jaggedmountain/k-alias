@@ -1,0 +1,44 @@
+{
+    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json",
+    "id": "k-alias",
+    "version": "1.0.0",
+    "name": "k*alias",
+    "description": "Alias scripts for making kubectl smooth: kk, kns, kls, klg, kex, krl, kup, kdn, kap, krm, plus helm and Azure helpers.",
+    "documentationURL": "https://github.com/jaggedmountain/k-alias",
+    "licenseURL": "https://github.com/jaggedmountain/k-alias/blob/master/LICENSE",
+    "keywords": [
+        "kubernetes",
+        "kubectl",
+        "helm",
+        "azure",
+        "aks",
+        "alias"
+    ],
+    "options": {
+        "installPath": {
+            "type": "string",
+            "default": "/usr/local/bin",
+            "description": "Directory the alias scripts are installed into. Must be on PATH."
+        },
+        "includeKubectl": {
+            "type": "boolean",
+            "default": true,
+            "description": "Install the kubectl aliases (kk, kns, kls, klg, kex, krl, kup, kdn, kap, krm)."
+        },
+        "includeHelm": {
+            "type": "boolean",
+            "default": true,
+            "description": "Install the helm aliases (hls, hin, hun)."
+        },
+        "includeAzure": {
+            "type": "boolean",
+            "default": true,
+            "description": "Install the Azure aliases (azs, aksme)."
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/kubectl-helm-minikube",
+        "ghcr.io/devcontainers/features/azure-cli"
+    ]
+}

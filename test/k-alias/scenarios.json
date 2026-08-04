@@ -1,0 +1,19 @@
+{
+    "kubectl_only": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "k-alias": {
+                "includeHelm": false,
+                "includeAzure": false
+            }
+        }
+    },
+    "custom_install_path": {
+        "image": "mcr.microsoft.com/devcontainers/base:debian",
+        "features": {
+            "k-alias": {
+                "installPath": "/usr/local/k-alias/bin"
+            }
+        }
+    }
+}

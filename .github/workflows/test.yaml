@@ -1,0 +1,19 @@
+name: "CI - Test Feature"
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install devcontainer CLI"
+        run: npm install -g @devcontainers/cli
+
+      - name: "Test k-alias (default options + scenarios)"
+        run: devcontainer features test -f k-alias -i mcr.microsoft.com/devcontainers/base:ubuntu .
